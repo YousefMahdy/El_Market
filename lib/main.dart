@@ -1,24 +1,16 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hexcolor/hexcolor.dart';
-import 'package:jooo/layout/news_App/cubit/states.dart';
-import 'package:jooo/layout/news_App/newsLayout.dart';
-import 'package:jooo/layout/shopLayout/cubit/cubit.dart';
-import 'package:jooo/layout/shopLayout/shopLayout.dart';
-import 'package:jooo/modules/shop_app/login/shop_logIn.dart';
-import 'package:jooo/modules/shop_app/on_boarding/on_boarding_screen.dart';
-
-import 'package:jooo/shared/bloc_Observer.dart';
-import 'package:jooo/shared/components/constants.dart';
-import 'package:jooo/shared/cubit/cubit.dart';
-import 'package:jooo/shared/cubit/states.dart';
-import 'package:jooo/shared/network/local/cashe_helper.dart';
-import 'package:jooo/shared/network/remote/dio_Helper.dart';
-import 'package:jooo/shared/stylse/themes.dart';
-
-
+import 'layout/cubit/cubit.dart';
+import 'layout/shopLayout.dart';
+import 'modules/login/shop_logIn.dart';
+import 'modules/on_boarding/on_boarding_screen.dart';
+import 'shared/bloc_Observer.dart';
+import 'shared/components/constants.dart';
+import 'shared/cubit/cubit.dart';
+import 'shared/cubit/states.dart';
+import 'shared/network/local/cashe_helper.dart';
+import 'shared/network/remote/dio_Helper.dart';
+import 'shared/stylse/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized(); //make all run befor runApp
@@ -56,11 +48,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (BuildContext context) => NewsCubit()
-        //     // ..getBusinessData(),
-        //     // ..getSportsData()
-        //     // ..getHealthData(),
-        //     ),
+
         BlocProvider(
             create: (BuildContext context) => AppCubit()
            //   ..changDarkMode(isDark)

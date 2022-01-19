@@ -1,13 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
-import 'package:jooo/modules/news_app/web_view/web_view_screen.dart';
-
 import 'package:jooo/shared/cubit/cubit.dart';
-
-import '../../layout/shopLayout/cubit/cubit.dart';
+import '../../layout/cubit/cubit.dart';
 import '../stylse/color.dart';
 
 Widget defaultButton({
@@ -95,142 +90,7 @@ Widget defaultFormField({
 }
 
 
-Widget buildTaskItem(Map row, context) => Dismissible(
-      key: Key(row['id'].toString()),
-      onDismissed: (directions) {
-        AppCubit.get(context).deleteDatabase(id: row['id']);
-      },
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Row(
-          children: [
-            CircleAvatar(
-              radius: 40,
-              child: Text("${row["time"]}"),
-            ),
-            SizedBox(
-              width: 20,
-            ),
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    ' ${row["title"]}',
-                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    "${row["date"]}",
-                    style: TextStyle(
-                      color: Colors.blueGrey,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  )
-                ],
-              ),
-            ),
-            SizedBox(
-              width: 5,
-            ),
-            IconButton(
-              onPressed: () {
-                AppCubit.get(context)
-                    .updateDatabase(status: "done", id: row['id']);
-              },
-              icon: Icon(
-                Icons.check_box_outlined,
-                color: row["status"] == "done" ? Colors.green : Colors.grey,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
-                AppCubit.get(context)
-                    .updateDatabase(status: "archive", id: row['id']);
-              },
-              icon: Icon(
-                Icons.archive_outlined,
-                color:
-                    row["status"] == "archive" ? Colors.blueGrey : Colors.grey,
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-
-Widget BuildArticleItem({
-  required article,
-  required context
-}){
-  return  InkWell(
-
-    onTap: () {
-
-        navigateTo(context, WebViewScreen(article['url']));
-
-    },
-    child: Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Row(
-        children: [
-
-          Container(
-            height: 120,
-            width: 120,
-            decoration: BoxDecoration(
-              color: Colors.blueGrey,
-              borderRadius: BorderRadius.circular(10),
-
-              image: DecorationImage(
-
-                  fit: BoxFit.cover,
-
-              image:NetworkImage('${article["urlToImage"]??"https://cdni.rt.com/media/pics/2022.01/original/61d4cd5e4236042dec695982.jpg"}'),
-
-                  //AssetImage('${article["urlToImage"]}')
-              ),//NetworkImage(""),
-
-
-
-            ),
-          ),
-          SizedBox(width: 10,),
-          Expanded(
-            child:Container(
-              height: 120,
-              child:  Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    child: Text(
-                      "${article["title"]}",
-                      style:Theme.of(context).textTheme.bodyText1,
-                      maxLines:3,
-                      overflow:  TextOverflow.ellipsis,),
-                  ),
-                  Text("${article["publishedAt"]}",
-                    style: TextStyle(
-                      fontSize: 18,
-                      color: Colors.grey[600],
-                      fontWeight: FontWeight.w600,
-                    ),
-
-
-                  ),
-
-
-                ],
-              ),
-            ),
-          )
-        ],
-      ),
-    ),
-  );
-}
-Widget BuildSeperatItem(){
+Widget BuildSeparateItem(){
   return Padding(
     padding: const EdgeInsets.symmetric(horizontal: 20),
     child: Container(
@@ -240,16 +100,6 @@ Widget BuildSeperatItem(){
     ),
   );
 }
-
-Widget articleBuilder(list,{ isSearch=false})=>ConditionalBuilder(
-  condition: list.isEmpty,
-  builder: (context) =>isSearch?Container(): Center(child: CircularProgressIndicator()),
-  fallback: (context) =>  ListView.separated(
-      physics: BouncingScrollPhysics(),
-      itemBuilder:(context,index) =>BuildArticleItem(article: list[index],context: context),
-      separatorBuilder:(context,index) =>BuildSeperatItem(),
-      itemCount: list.length),
-);
 
 void navigateTo(context,widget)=>Navigator.push(
   context,MaterialPageRoute(builder: (context)=>widget ));

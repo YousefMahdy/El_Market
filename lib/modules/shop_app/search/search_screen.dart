@@ -40,7 +40,7 @@ class SearchScreen extends StatelessWidget {
                       onSubmit: (String text) {
                         SearchCubit.get(context).search(text);
                       },
-                      labelText:  'Search',
+                      labelText:  'Search For Products',
                       prefexIcon: Icons.search,
                     ),
                     SizedBox(

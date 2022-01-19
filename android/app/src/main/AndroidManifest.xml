@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.jooo">
+    package="com.example.el_Market">
    <application
-        android:label="jooo"
+        android:label="El Market"
        android:icon="@mipmap/ic_launcher"
 
        >

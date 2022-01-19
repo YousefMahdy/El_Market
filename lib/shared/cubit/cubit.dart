@@ -1,15 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:jooo/modules/todo_app/archivedScrean/archived.dart';
-import 'package:jooo/modules/todo_app/doneScrean/done.dart';
-import 'package:jooo/modules/todo_app/tasks/Tasks.dart';
-
 import 'package:jooo/shared/cubit/states.dart';
 import 'package:jooo/shared/network/local/cashe_helper.dart';
 import 'package:sqflite/sqflite.dart';
-
-import '../../models/shopAppmodel/loginModel.dart';
+import '../../models/loginModel.dart';
 import '../network/end_points.dart';
 import '../network/remote/dio_Helper.dart';
 
@@ -17,7 +12,7 @@ class AppCubit extends Cubit<AppStetes> {
   AppCubit() : super(AppInitialState());
   var current_index = 0;
   List<String> title = ["New Tasks", "Done Tasks", "Archived Tasks"];
-  List<Widget> body = [Tasks(), Done(), Arcvived()];
+
   late List<Map> tasks = [];
   late List<Map> newTasks = [];
   late List<Map> doneTasks = [];
